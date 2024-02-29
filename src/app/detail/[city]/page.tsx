@@ -1,20 +1,27 @@
-// use client
-import HomeButton from "@/app/components/HomeBotton";
-// @은 /src 를 가르키는 절대 경로입니다.
 import style from "@/app/styles/detail.module.css";
+import HomeButton from "@/app/components/HomeButton";
 type Props = {
   params: {
     city: string;
   };
+  searchParams: {
+    cityName: string;
+  };
 };
+// 동적 MetaData
+export function generateMetadata({ params, searchParams }: Props) {
+  return {
+    title: `새로운 타이틀 - ${searchParams.cityName}`,
+    description: `${params.city} : 연습하고 있습니다. ^^`,
+  };
+}
 
-const Detail = ({ params }: Props) => {
-  const cityName = params.city === "daegu" ? "대구" : params.city;
+const Detail = ({ params, searchParams }: Props) => {
+  // const cityName = params.city === "daegu" ? "대구" : params.city;
   return (
     <>
-      {/* <Link href="/">이전페이지</Link> */}
-      {/* <button onClick={() => handleClick()}>이전으로</button> */}
-      <div className={style.detailTitle}>상세내용 : {cityName}</div>
+      <div className={style.detailTitle}>상세내용 : {searchParams.cityName}</div>
+
       <HomeButton />
     </>
   );
